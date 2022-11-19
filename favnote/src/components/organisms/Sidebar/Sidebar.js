@@ -7,6 +7,7 @@ import logoutIcon from 'assets/icons/logout.svg';
 import penIcon from 'assets/icons/pen.svg';
 import twitterIcon from 'assets/icons/twitter.svg';
 import logoIcon from 'assets/icons/logo.svg';
+import PropTypes from 'prop-types';
 
 const StyledWrapper = styled.nav`
   position: fixed;
@@ -15,7 +16,7 @@ const StyledWrapper = styled.nav`
   padding: 25px 0;
   width: 150px;
   height: 100vh;
-  background-color: ${({ theme }) => theme.notes};
+  background-color: ${({ pageType, theme }) => (pageType ? theme[pageType] : theme.notes)};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,13 +45,13 @@ const StyledLinksList = styled.ul`
   list-style: none;
 `;
 
-const Sidebar = () => (
-  <StyledWrapper>
+const Sidebar = ({ pageType }) => (
+  <StyledWrapper pageType={pageType}>
     <StyledLogoLink to="/" />
 
     <StyledLinksList>
       <li>
-        <ButtonIcon as={NavLink} to="/" icon={penIcon} />
+        <ButtonIcon as={NavLink} to="/notes" icon={penIcon} />
       </li>
       <li>
         <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} />
@@ -63,5 +64,13 @@ const Sidebar = () => (
     <StyledLogoutButton as={NavLink} to="/login" icon={logoutIcon} />
   </StyledWrapper>
 );
+
+Sidebar.propTypes = {
+  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+};
+
+Sidebar.defaultProps = {
+  pageType: 'notes',
+};
 
 export default Sidebar;
