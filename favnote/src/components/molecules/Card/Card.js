@@ -5,6 +5,7 @@ import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/icons/link.svg';
+import { Navigate } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
   min-height: 380px;
@@ -69,26 +70,45 @@ const StyledLinkButton = styled.a`
   transform: translateY(-50%);
 `;
 
-const Card = ({ cardType, title, created, twitterName, articleUrl, content }) => (
-  <StyledWrapper>
-    <InnerWrapper cardType={cardType}>
-      <StyledHeading>{title}</StyledHeading>
-      <DateInfo>{created}</DateInfo>
-      {cardType === 'twitters' && (
-        <StyledAvatar
-          src={`https://avatars.dicebear.com/api/bottts/:${twitterName}.svg?b=yellow`}
-        />
-      )}
-      {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
-    </InnerWrapper>
-    <InnerWrapper flex>
-      <Paragraph>{content}</Paragraph>
-      <Button secondary>REMOVE</Button>
-    </InnerWrapper>
-  </StyledWrapper>
-);
+class Card extends React.Component {
+  state = {
+    redirect: false,
+  };
+
+  handleCardClick = () => this.setState({ redirect: true });
+
+  render() {
+    const { id, cardType, title, created, twitterName, articleUrl, content } = this.props;
+
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Navigate to={`${id}`} />;
+    }
+
+    return (
+      <StyledWrapper onClick={this.handleCardClick}>
+        <InnerWrapper cardType={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'twitters' && (
+            <StyledAvatar
+              src={`https://avatars.dicebear.com/api/bottts/:${twitterName}.svg?b=yellow`}
+            />
+          )}
+          {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <Button secondary>REMOVE</Button>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
+  }
+}
 
 Card.propTypes = {
+  id: PropTypes.number.isRequired,
   cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
