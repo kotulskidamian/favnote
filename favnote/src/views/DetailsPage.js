@@ -28,14 +28,27 @@ class DetailsPage extends React.Component {
   }
 
   render() {
+    const dummyArticle = {
+      id: 1,
+      title: 'Wake me up when Vue ends',
+      content: 'Commodo consequat incididunt proident cupidatat fugiat in.',
+      twitterName: 'hello_roman',
+      articleUrl:
+        'https://github.com/eduwebpl/kurs-react-w-praktyce/blob/04.12-finish/04/src/routes/index.js',
+      created: '1 day',
+    };
+
     const { pageType } = this.state;
 
     return (
-      <>
-        <DetailsTemplate pageType={pageType}>
-          <p>{pageType}</p>
-        </DetailsTemplate>
-      </>
+      <DetailsTemplate
+        pageType={pageType}
+        title={dummyArticle.title}
+        created={dummyArticle.created}
+        content={dummyArticle.content}
+        articleUrl={dummyArticle.articleUrl}
+        twitterName={dummyArticle.twitterName}
+      />
     );
   }
 }
