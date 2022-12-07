@@ -4,10 +4,10 @@ import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
 import { theme } from 'theme/mainTheme';
+import PageContext from 'context';
 
 class MainTemplate extends React.Component {
   state = {
-    // eslint-disable-next-line react/no-unused-state
     pageType: 'notes',
   };
 
@@ -26,18 +26,20 @@ class MainTemplate extends React.Component {
     const [currentPage] = pageTypes.filter(page => pathname.includes(page));
 
     if (prevState.pageType !== currentPage) {
-      // eslint-disable-next-line react/no-unused-state
       this.setState({ pageType: currentPage });
     }
   };
 
   render() {
     const { children } = this.props;
+    const { pageType } = this.state;
 
     return (
       <div>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <PageContext.Provider value={pageType}>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </PageContext.Provider>
       </div>
     );
   }

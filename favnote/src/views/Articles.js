@@ -5,7 +5,7 @@ import Card from 'components/molecules/Card/Card';
 import GridTemplate from '../templates/GridTemplate';
 
 const Articles = ({ articles }) => (
-  <GridTemplate pageType="articles">
+  <GridTemplate>
     <>
       {articles.map(item => (
         <Card cardType="articles" key={item.id} {...item} />
