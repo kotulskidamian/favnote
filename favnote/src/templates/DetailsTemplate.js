@@ -68,7 +68,7 @@ const DetailsTemplate = ({ pageType, title, created, content, artcileUrl, twitte
           src={`https://avatars.dicebear.com/api/bottts/:${twitterName}.svg?b=yellow`}
         />
       )}
-      <Button as={Link} to={`/${pageType}`} activeColor={pageType}>
+      <Button as={Link} to={`/${pageType}`} activecolor={pageType}>
         save / close
       </Button>
     </StyledWrapper>

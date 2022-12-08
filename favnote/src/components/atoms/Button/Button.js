@@ -8,7 +8,7 @@ const Button = styled.button`
   text-decoration: none;
   padding: 0;
   /* background-color: ${({ color }) => color || 'hsl(49, 100%, 58%)'}; */
-  background-color: ${({ activeColor, theme }) => theme[activeColor]};
+  background-color: ${({ activecolor, theme }) => theme[activecolor]};
   width: 220px;
   height: 47px;
   border: none;

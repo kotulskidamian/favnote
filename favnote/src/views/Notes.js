@@ -8,7 +8,7 @@ const Notes = ({ notes }) => (
   <GridTemplate>
     <>
       {notes.map(item => (
-        <Card cardType="notes" key={item.id} {...item} />
+        <Card key={item.id} {...item} />
       ))}
     </>
   </GridTemplate>
@@ -19,7 +19,7 @@ const mapStateToProps = ({ notes }) => ({ notes });
 Notes.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       created: PropTypes.string.isRequired,
